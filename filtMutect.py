@@ -73,8 +73,8 @@ def main(ruta, samplename = "noName") :
     anno.guardarTabla(todas, "raw") # Todas las variantes recogidas en el vcf
     anno.guardarTabla(conseq, "conseq") # Variantes en regiones de splicing o exonicas (exluyendo sinonimas)
     anno.guardarTabla(mafAlta, "highMAF") # Variantes con una MAF>=0.01 en alguna columna de base de datos poblacional
-    anno.guardarTabla(vafBaja, "lowVAF") # Variantes con una frecuencia alelica menor de 0.1
-    anno.guardarTabla(vafAlta, "cand") # Variantes que han pasado todos los filtros anteriores
+    anno.guardarTabla(vafBaja, "VAF<2") # Variantes con una frecuencia alelica menor de 0.1
+    anno.guardarTabla(vafAlta, "VAF>=2") # Variantes que han pasado todos los filtros anteriores
 
     # Mostrar por pantalla estadisticas basicas
     print("INFO: Variantes encontradas por Mutect2: {}".format(len(todas))) # Total de variantes reportadas por Strelka2
