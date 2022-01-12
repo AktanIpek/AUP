@@ -8,7 +8,7 @@ import sys
 import getWebInfo as gw
 
 # Constantes
-vafBaja = 2 # VAF para considerar una variante como candidata o de baja VAF. Modificar la documentacion de la funcion filtrarVAF en caso de modificar esta constante
+vafBaja = 10 # VAF para considerar una variante como candidata o de baja VAF. Modificar la documentacion de la funcion filtrarVAF en caso de modificar esta constante
 minMaf = 0.01 # MAF para considerar una variante como poblacional o posible candidata. Modificar la documentacion de la funcion filtrarMAF en caso de modificar esta constante
 
 #Todas las claves con la informacion que se guardara en los archivos de texto
@@ -228,7 +228,7 @@ def filtrarVAF(dc) :
     """Clasificar las variantes por su Variant Allele Frequency
 
     Dada una lista de diccionarios (variantes) pasada por parametro, separa los elementos de la lista dependiendo de la frecuencia alelica de la variante (VAF). Se consideran variantes
-    con una VAF alta aquellas que tengan una VAF mayor de 2(%). Si la VAF es menor o igual al 2% se considera que es baja
+    con una VAF alta aquellas que tengan una VAF mayor de 10(%). Si la VAF es menor o igual al 10% se considera que es baja
 
     Parameters
     ----------
@@ -245,7 +245,7 @@ def filtrarVAF(dc) :
     alta = []
     baja = []
     for l in dc :
-        if l["VAF"] >= vafBaja :
+        if l["VAF"] > vafBaja :
             alta.append(l)
         else :
             baja.append(l)
