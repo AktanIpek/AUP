@@ -136,11 +136,9 @@ def scriptR(datos) :
         matriu2 = "mt <- matrix(c("
         for k, v in datos.items() :
             sampname = k.replace("-", "").lower() # Eliminar los guiones y convertir a minusculas
-            try : # Comprobar si el identificador de muestra es un numero. En ese caso ponerle una letra delante para que no de errores el script de R
-                int(sampname)
+            if sampname[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] : # Comprobar si el identificador de muestra es un numero. En ese caso ponerle una letra delante para que no de errores el script de R
                 sampname = "p{}".format(sampname)
-            except ValueError :
-                pass
+
             muestras += "{smp} <- c({fq}, {bam}, {on}, {off})\n".format(smp = sampname, fq = v["FQ"], bam = v["BAM"], on = v["ON"], off = v["OFF"])
             coverages += "{smp}.cov <- read.table('{cov}', header = FALSE, sep = '\\t')\n".format(smp = sampname, cov = v["COV_PATH"])
             coverages += "colnames({smp}.cov) <- c('chr', 'start', 'end', 'gene', 'pos', 'coverage')\n".format(smp = sampname)
@@ -163,11 +161,9 @@ def scriptR(datos) :
         fi.write("\n# Graficos de barras con el porcentaje de bases con un coverage determinado\n")
         for k in datos.keys() :
             sampname = k.replace("-", "").lower() # Eliminar los guiones y convertir a minusculas
-            try : # Comprobar si el identificador de muestra es un numero. En ese caso ponerle una letra delante para que no de errores el script de R
-                int(sampname)
+            if sampname[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] : # Comprobar si el identificador de muestra es un numero. En ese caso ponerle una letra delante para que no de errores el script de R
                 sampname = "p{}".format(sampname)
-            except ValueError :
-                pass
+
             fi.write("\ntotal <- length({}.cov$coverage)\n".format(sampname))
             fi.write("men0 <- round(100*length({smp}.cov[{smp}.cov$coverage >= 0,]$coverage)/total, 2)\n".format(smp = sampname))
             fi.write("men30 <- round(100*length({smp}.cov[{smp}.cov$coverage >= 30,]$coverage)/total, 2)\n".format(smp = sampname))
@@ -208,11 +204,9 @@ def scriptR(datos) :
                 it = 1
                 for k in datos.keys() :
                     sampname = k.replace("-", "").lower() # Eliminar los guiones y convertir a minusculas
-                    try : # Comprobar si el identificador de muestra es un numero. En ese caso ponerle una letra delante para que no de errores el script de R
-                        int(sampname)
+                    if sampname[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] : # Comprobar si el identificador de muestra es un numero. En ese caso ponerle una letra delante para que no de errores el script de R
                         sampname = "p{}".format(sampname)
-                    except ValueError :
-                        pass
+                        
                     all += "aux{}$coverage,".format(sampname)
                     if plot == "" :
                         plot = "plot(aux{smp}$coverage, type = 'l', main = 'Coverage {gen}', col = rainbow({lon})[{it}], ylim = c(0, maxi))\n".format(smp = sampname, gen = g, lon = len(datos), it = it)
