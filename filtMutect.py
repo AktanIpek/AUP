@@ -27,10 +27,7 @@ def main(ruta, samplename = "noName") :
     for p in todas :
         p["population_max"], p["population_max_name"] = anno.maximMaf(p)
         p["predictor_summary"] = anno.resumPredictors(p)
-        if "STRANDQ" in p.keys() :
-            p["Strand_bias_score"] = p["STRANDQ"] # Mutect2 no proporciona los reads forward y los reads reverse de la variante
-        else :
-            p["Strand_bias_score"] = "NA"
+
         if "SB" in p.keys() :
             aux = p["SB"].split(",")
             refFw = int(aux[0])
@@ -41,8 +38,9 @@ def main(ruta, samplename = "noName") :
             p["SB"] = pvalue
             p["ADF"] = "{},{}".format(refFw, altFw)
             p["ADR"] = "{},{}".format(refRv, altRv)
-            if not "STRANDQ" in p.keys() :
-                p["Strand_bias_score"] = refFw + altFw - refRv - altRv
+            p["Strand_bias_score"] = altFw - altRv
+        else :
+            p["Strand_bias_score"] = "NA"
 
         p["Ref_depth"] = p["AD"].split(",")[0]
         p["Alt_depth"] = p["AD"].split(",")[1]
