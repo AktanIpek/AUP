@@ -137,6 +137,10 @@ def escribirVariantes(hoja, libro, cnt, empiezaEn) :
                     hoja.write(fila, columna, dic[o])
             elif o == "Chr" and not dic[o].startswith("chr") :
                 hoja.write(fila, columna, "chr{}".format(dic[o]))
+            elif o == "Strand_bias_score" :
+                # Parche para el calculo que quieren en Vall d'Hebron. Ellos quieren la formula reads_alterados_forward/reads_alterados_totales
+                stb = float(dic["ADF"].split(",")[1])/float(dic["Alt_depth"])
+                hoja.write(fila, columna, "{}/{}={}".format(dic["ADF"].split(",")[1], dic["Alt_depth"],stb))
             elif o == "population_max" :
                 try :
                     if float(dic[o]) >= maxMaf :
