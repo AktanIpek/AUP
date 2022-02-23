@@ -28,12 +28,11 @@ def main(path, output = "mutect.revised.vcf") :
             if l.startswith("#") :
                 header += l
             else :
-                body += l # Agregar la fila original
                 gt = l.split("\t")[9].split(":")[0] # Recoger, de la columna con los valores de FORMAT, el valor de la columna GT
-                if len(gt.split("/")) > 2 :
+                if len(gt.split("/")) > 2 : # La variante es multialelica
                     chr, pos, id, ref, alt, qual, filter, info, format, sample = l.split("\t")
                     newline = ""
-                    for i in range(2, len(gt.split("/"))) : # Crear nuevas filas por cada variante multialelica
+                    for i in range(1, len(gt.split("/"))) : # Crear nuevas filas por cada variante multialelica
                         newline = "{chr}\t{pos}\t{id}\t{ref}\t".format(chr = chr, pos = pos, id = id, ref = ref)
                         newline += "{alt}\t".format(alt = alt.split(",")[i-1])
                         newline += "{qual}\t{filter}\t{info}\t{format}\t".format(qual = qual, filter = filter, info = info, format = format)
@@ -49,7 +48,9 @@ def main(path, output = "mutect.revised.vcf") :
                                 cnt = aux[h]
                             newformat += ":{}".format(cnt)
                         newline += "{}".format(newformat)
-                    body += newline
+                        body += newline
+                else :
+                    body += l # Agregar la fila original
     with open(output, "w") as fi :
         fi.write(header)
         fi.write(body)
