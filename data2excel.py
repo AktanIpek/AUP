@@ -223,24 +223,27 @@ def ayudaPredictores(hoja, libro, fila) :
     })
     medio = libro.add_format({
         'left' : 1,
-        'right' : 1
+        'right' : 1,
+        'text_wrap' : True,
     })
     bajo = libro.add_format({'bottom' : 1,
         'left' : 1,
-        'right' : 1
+        'right' : 1,
+        'text_wrap' : True
     })
+
 
     #Ayuda para interpretar la prediccion de algunos de los predictores
     titol = "HELP for in silico predictors"
-    sift = "SIFT\n\rD -> Deleterious\n\rT -> Benign"
-    polyphen = "Polyphen\n\rD -> Probably damaging\n\rP -> Possibly damaging\n\rB -> Benign"
-    lrt = "LRT\n\rD -> Deletereous\n\rN -> Neutral\n\rU -> Unknown"
-    mtaster = "Mutation Taster\n\rA -> Disease causing automatic\n\rD -> Disease causing\n\rN -> Polymophism\n\rP -> Polymophism automatic"
-    massessor = "Mutation Assessor\n\rH -> High (Deleterious)\n\rM -> Medium (Deleterious)\n\rL -> Low (Tolerated)\n\rN -> Neutral (Tolerated)"
-    provean = "PROVEAN\n\rD -> Deleterious\n\rT -> Benign"
-    fathmm = "FATHMM\n\rD -> Deleterious\n\rN -> Benign"
-    msvm = "MetaSVM\n\rD -> Deleterious\n\rT -> Benign"
-    mlr = "MetaLR\n\rD -> Deleterious\n\rT -> Benign"
+    sift = "SIFT\nD -> Deleterious\nT -> Benign"
+    polyphen = "Polyphen\nD -> Probably damaging\nP -> Possibly damaging\nB -> Benign"
+    lrt = "LRT\nD -> Deletereous\nN -> Neutral\nU -> Unknown"
+    mtaster = "Mutation Taster\nA -> Disease causing automatic\nD -> Disease causing\nN -> Polymophism\nP -> Polymophism automatic"
+    massessor = "Mutation Assessor\nH -> High (Deleterious)\nM -> Medium (Deleterious)\nL -> Low (Tolerated)\nN -> Neutral (Tolerated)"
+    provean = "PROVEAN\nD -> Deleterious\nT -> Benign"
+    fathmm = "FATHMM\nD -> Deleterious\nN -> Benign"
+    msvm = "MetaSVM\nD -> Deleterious\nT -> Benign"
+    mlr = "MetaLR\nD -> Deleterious\nT -> Benign"
     ot = "GERP++, PhyloP, SiPhy -> Higher scores are more deleterious"
 
     hoja.merge_range(fila, 1, fila, 8, titol, titulo)
@@ -257,18 +260,19 @@ def ayudaPredictores(hoja, libro, fila) :
 
     #Ayuda para interpretar la columna summary_predictors
     titol = "HELP for 'predictor summary' column"
-    body = "The column summarizes the prediction of SIFT,\n\rPolyphen2 HDIV, Polyphen2 HVAR, LRT, MutationTaster,\n\rMutationAssessor, FATHMM, PROVEAN, MetaSVM, and MetaLR.\n\n"
-    body += "It enumerates the number of (D)eletereous, (T)olerated,\n\r and (U)nknown prediction\n\n"
-    body += "So 2D, 7T, 1U\nmeans\n2 deleterious, 7 tolerated, and 1 unknown predictions."
+    body = "The column summarizes the prediction of SIFT,\nPolyphen2 HDIV, Polyphen2 HVAR, LRT, MutationTaster,\nMutationAssessor, FATHMM, PROVEAN, MetaSVM, and MetaLR.\n\n"
+    body += "It enumerates the number of (D)eletereous, (T)olerated,\n and (U)nknown prediction\n\n"
+    body += "So 2D, 7T, 1U means\n2 deleterious, 7 tolerated, and 1 unknown predictions."
     hoja.merge_range(fila, 10, fila, 16, titol, titulo)
     hoja.merge_range(fila+1, 10, fila+9, 16, body, bajo)
 
     #Ayuda para los coeficientes de strand-bias
-    titol = "HELP for SMD Strand bias score"
-    body = "Strand bias is calculated with the formula:\nreads_reference_forward + reads_alterated_forward - read_reference_reverse - reads_alterated_reverse"
+    titol = "HELP for SMD Strand bias score and Variant caller strand bias score"
+    body = "Strand bias is calculated with the formula:\nreads_alterated_forward - reads_alterated_reverse\n\n"
+    body += "Variant caller strand bias caller shows Fisher's exact test. So values below 0.05 are candidates for strand bias"
 
     hoja.merge_range(fila+12, 10, fila+12, 19, titol, titulo)
-    hoja.merge_range(fila+13, 10, fila+14, 19, body, bajo)
+    hoja.merge_range(fila+13, 10, fila+17, 19, body, bajo)
 
 def escribirEstadisticas(hoja, libro) :
     """Escribir en una pestana excel las estadisticas del panel
