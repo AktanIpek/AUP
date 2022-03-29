@@ -299,7 +299,9 @@ def prepararPanel(ruta, acciones) :
                 # Anotacion de variantes usando ANNOVAR
                 if "vanno" in acciones :
                     fi.write("\n\t# Anotacion y filtrado de variantes. ANNOVAR y myvariant.info\n")
-                    fi.write("\t" + cmd.getANNOVAR("mutect.revised.vcf", "raw").replace("\n", "\t\n") + "\n")
+                    temp = cmd.getANNOVAR("mutect.revised.vcf", "raw").split("\n")
+                    fi.write("\t" + temp[0] + "\n")
+                    fi.write("\t" + temp[1] + "\n")
                 # Re-anotacion y filtrado de variantes usando myvariant.info
                 if "filtrar" in acciones :
                     if "mutectGerm" in acciones :
