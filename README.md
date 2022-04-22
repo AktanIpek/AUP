@@ -105,6 +105,38 @@ cd $CARPETA_DE_LA_MUESTRA_A_ANALIZAR
 $PATH_AUP/infomeQC.py
 ```
 
+### Crear un informe de calidad de todo el panel
+
+El *script* crea un informe, en formato web, con los gr&aacute;ficos generos durante el an&aacute;lisis de la muestra y algunas funcionalidades extra. En este informe se puede consultar:
+* una tabla con todas las variantes reportadas por todas las muestras y las veces que se ha reportado la variante en el panel
+* un gr&aacute;fico con el n&uacute;mero de reads que contienen los FASTQ (FQ), los BAM y los que est&aacute;n alineados en regiones del manifest (ON target) o fuera de &eacute;l (OFF target)
+* un histograma con la distribuci&oacute;n de SNV en cada muestra. Es decir, un gr&aacute;fico con el n&uacute;mero de veces que se cambia C>A, C>G, C>T, T>A, T>C y T>G en cada muestra. Los cambios complementarios se adaptan a este formato (por ejemplo, los G>T se escriben como C>A)
+* un gr&aacute;fico de barras por cada muestra con el porcentaje de bases que tienen un coverage de 0 (o superior), 30 (o superior), 100 (o superior), 500 (o superior), 1000 (o superior), 1500 (o superior), 2000 (o superior) y 2500 (o superior)
+* un grafico con el coverage de cada gen. El coverage de cada muestra en el gen se genera por una linea
+
+#### Uso
+
+```bash
+cd $CARPETA_DEL_ANALISIS
+$PATH_AUP/informeGlobal.py
+```
+
+### Copiar los datos finales de un panel a otra carpeta
+
+Copia los datos necesarios para el filtrado visual a otra carpeta definida por el usuario.
+
+#### Uso
+
+```bash
+$PATH_AUP/moverDatos.py
+```
+
+o
+
+```bash
+$PATH_AUP/moverDatos [numero de tanda] [carpeta_destino]
+```
+
 # FAQs
 
 ## &iquest;C&oacute;mo hago para modificar los programas que se ejecutan en los an&aacute;lisis?
