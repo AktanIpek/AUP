@@ -87,7 +87,6 @@ def copiarDatos(ori, dest) :
     if os.path.isdir("{}/informeGlobal".format(origen)) :
         print("INFO: Copiando informe de calidad de la tanda")
         cmd = "rsync -a {o}/informeGlobal {d}".format(o = origen, d = dest)
-        print(cmd)
         args = shlex.split(cmd)
         p = subprocess.Popen(args, stdin = subprocess.PIPE, stdout = subprocess.PIPE)
         out, err = p.communicate()

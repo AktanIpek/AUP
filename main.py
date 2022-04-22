@@ -19,6 +19,7 @@ import getCommands as gc
 import informeQC as qc
 import informeQCtanda as globalqc
 import manifestOp as op
+import moverDatos as mv
 
 def reanalizar() :
     """Reanalizar una muestra sin borrar lo que ya esta guardado"""
@@ -250,6 +251,7 @@ def GUI() :
     print("7. Anotar un manifest")
     print("8. Crear un informe de la calidad de los FASTQ, el alineamiento y el coverage")
     print("9. Crear un informe de la tanda")
+    print("0. Copiar datos de un panel a otra ubicacion")
     opt = input("INPUT: Numero de opcion: ")
     # Comprobar si la opcion es un numero
     try :
@@ -286,6 +288,9 @@ def GUI() :
     elif opt == 9 :
         print("\n")
         globalqc.main()
+    elif opt == 0 :
+        print("\n")
+        mv.main()
     else :
         print("ERROR: Opcion no valida")
         sys.exit(1)
