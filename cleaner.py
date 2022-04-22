@@ -148,7 +148,7 @@ def main(tanda = "") :
     """
     root = "/home/ffuster/panalisi/resultats"
     if tanda == "" :
-        tanda = input("REQUEST: Numero de tanda que se quiere limpiar: ")
+        tanda = input("INPUT: Numero de tanda que se quiere limpiar: ")
 
     try :
         t = int(tanda)
