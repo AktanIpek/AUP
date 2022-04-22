@@ -50,7 +50,7 @@ def eliminarVariantCalling(ruta) :
         ruta : str
             Nombre de la tanda que se quiere archivar
     """
-    print("INFO: Eliminant temporals de la carpeta de variants")
+    print("INFO: Eliminando temporales de la carpeta de variantes")
     cont = 0
     pes = 0
     # Recoger los directorios (muestras) que se han hecho en la tanda
@@ -60,7 +60,6 @@ def eliminarVariantCalling(ruta) :
     for d in dirs :
         path = "{root}/{samp}/variantCalling".format(root = ruta, samp = d)
         if os.path.isdir(path) :
-            print(path)
             arxius = os.listdir(path)
             # Eliminar los temporales de un variant calling hecho usando VarScan2
             if "varscan.vcf" in arxius :
@@ -86,7 +85,7 @@ def eliminarVariantCalling(ruta) :
                         os.remove("{dir}/{arx}".format(dir = path, arx = a))
 
 
-    print("INFO: {} arxius eliminats. {} espai alliberat".format(cont, convert_size(pes)))
+    print("INFO: {} archivos eliminados. {} espacio liberado".format(cont, convert_size(pes)))
 
 def eliminarAliniament(ruta) :
     """Eliminar los archivos temporales del alineamiento
@@ -99,7 +98,7 @@ def eliminarAliniament(ruta) :
         ruta : str
             Nombre de la tanda que se quiere archivar
     """
-    print("INFO: Eliminant bams intermedis")
+    print("INFO: Eliminando bams intermedios")
     cont = 0 # Contador de arxius elminats
     pes = 0
     arxius = ["bwa.sam", "bwa.sort.bam", "bwa.sort.bai", "bwa.bed", "recaldata.table"] # Lista d'arxius a eliminar
@@ -116,7 +115,7 @@ def eliminarAliniament(ruta) :
                 pes += os.path.getsize(arx)
                 os.remove(arx)
                 cont += 1
-    print("INFO: {} bams eliminats. {} espai alliberat".format(cont, convert_size(pes)))
+    print("INFO: {} bams eliminados. {} espacio liberado".format(cont, convert_size(pes)))
 
 
 def eliminarFASTQ(ruta) :
@@ -129,7 +128,7 @@ def eliminarFASTQ(ruta) :
         ruta : str
             Nombre de la tanda que se quiere archivar
     """
-    print("INFO: Eliminant arxius FASTQ")
+    print("INFO: Eliminando archivos FASTQ")
     cont = 0
     pes = 0
     for root, dirs, files in os.walk(ruta) :
@@ -139,7 +138,7 @@ def eliminarFASTQ(ruta) :
                 pes += os.path.getsize("{path}/{arxiu}".format(path = ruta, arxiu = f))
                 os.remove("{path}/{arxiu}".format(path = ruta, arxiu = f))
 
-    print("INFO: {} arxius eliminats. {} espai alliberat".format(cont, convert_size(pes)))
+    print("INFO: {} archivos eliminados. {} espacio liberado".format(cont, convert_size(pes)))
 
 def main(tanda = "") :
     """Programa principal
@@ -149,13 +148,13 @@ def main(tanda = "") :
     """
     root = "/home/ffuster/panalisi/resultats"
     if tanda == "" :
-        tanda = input("REQUEST: Dona'm el numero de tanda que vols netejar: ")
+        tanda = input("REQUEST: Numero de tanda que se quiere limpiar: ")
 
     try :
         t = int(tanda)
         tanda = "tanda{}".format(t)
     except ValueError :
-        print("ERROR: El numero de tanda no es un numero. Valor introduit: {}".format(tanda))
+        print("ERROR: El numero de tanda no es un numero. Valor introducido: {}".format(tanda))
         sys.exit(1)
 
     path = "{root}/{tanda}".format(root = root, tanda = tanda)
@@ -164,7 +163,7 @@ def main(tanda = "") :
         eliminarAliniament(path)
         eliminarVariantCalling(path)
     else :
-        print("ERROR: La carpeta {} no existeix".format(path))
+        print("ERROR: La carpeta {} no existe".format(path))
 
 if __name__ == "__main__" :
     if len(sys.argv) > 1 :
