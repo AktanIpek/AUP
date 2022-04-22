@@ -83,7 +83,18 @@ def copiarDatos(ori, dest) :
                 print("WARNING: La copia no se produjo correctamente")
                 print("\tComando usado: {}".format(cmd))
                 print("\tDescripcion: {}".format(err))
-
+    # Copiar el informe de calidad
+    if os.path.isdir("{}/informeGlobal".format(origen)) :
+        print("INFO: Copiando informe de calidad de la tanda")
+        cmd = "rsync -a {o}/informeGlobal {d}".format(o = origen, d = dest)
+        print(cmd)
+        args = shlex.split(cmd)
+        p = subprocess.Popen(args, stdin = subprocess.PIPE, stdout = subprocess.PIPE)
+        out, err = p.communicate()
+        if p.returncode != 0 :
+            print("WARNING: La copia no se produjo correctamente")
+            print("\tComando usado: {}".format(cmd))
+            print("\tDescripcion: {}".format(err))
 
 
 def main(tanda = "", destino = "") :
