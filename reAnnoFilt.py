@@ -135,7 +135,7 @@ def convertirData(path) :
     "phyloP20way_mammalian", "phyloP20way_mammalian_rankscore", "phastCons100way_vertebrate", "phastCons100way_vertebrate_rankscore",  "phastCons20way_mammalian",
     "phastCons20way_mammalian_rankscore", "SiPhy_29way_logOdds", "SiPhy_29way_logOdds_rankscore", "Interpro_domain", "GTEx_V6p_gene", "GTEx_V6p_tissue", "CHROM", "POS", "ID", "REFERENCE",
     "ALTERATED", "QUAL", "FILTER", "INFO", "FORMAT", "SAMPLE"]
-    with open(path, "r") as fi :
+    with open(path, "r", errors = "replace") as fi :
         dc = []
         for l in fi :
             if cabecera :
@@ -292,7 +292,11 @@ def guardarTabla(dc, prefijo) :
         for d in dc :
             for o in allkeys :
                 if o in d.keys() :
-                    fi.write("{}\t".format(d[o]))
+                    try :
+                        fi.write("{}\t".format(d[o]))
+                    except UnicodeEncodeError :
+                        # fi.write("{}\t".format(d[o].replace("", "").replace("", )))
+                        fi.write("{}\t".format(d[o].encode("utf-8")))
                 else :
                     fi.write("{}\t".format(vacio))
             fi.write("\n")
